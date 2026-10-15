@@ -1,0 +1,126 @@
+-- ==============================================================================
+-- KINETOV - CLOUDFLARE D1 INITIAL SEED DATA
+-- Execute via: npx wrangler d1 execute <DATABASE_NAME> --remote --file=./d1/seed.sql
+-- ==============================================================================
+
+-- 1. Insert Initial Admin (Username: admin, Password: adminpassword123)
+INSERT OR REPLACE INTO "Admin" ("id", "username", "password", "name", "createdAt")
+VALUES (
+    'admin-master-uuid-001',
+    'admin',
+    '$2b$10$XFfxFgUAooyzuONPHhyoH.qKjpWoeGlce3ee9YTVBRJRhNZEG69q.',
+    'System Admin',
+    CURRENT_TIMESTAMP
+);
+
+-- 2. Insert Custom Battery Packs
+INSERT OR REPLACE INTO "Product" (
+    "id",
+    "name",
+    "slug",
+    "description",
+    "price",
+    "compareAtPrice",
+    "voltage",
+    "capacity",
+    "chemistry",
+    "maxDischarge",
+    "cycleLife",
+    "dimensions",
+    "weight",
+    "connectorType",
+    "category",
+    "images",
+    "stock",
+    "isFeatured",
+    "createdAt",
+    "updatedAt"
+) VALUES 
+(
+    'prod-voltcraft-48v',
+    'VoltCraft 48V 100Ah LiFePO4 Solar & Power Pack',
+    'voltcraft-48v-100ah-lifepo4-pack',
+    'Engineered for off-grid solar storage, backup power, and heavy-duty energy needs. Built with grade-A prismatic LiFePO4 cells, integrated 150A Smart BMS with Bluetooth monitoring, heavy-duty copper busbars, and a laser-welded IP65 aluminum casing.',
+    129990.00,
+    149990.00,
+    '48.0V (51.2V Nominal)',
+    '100Ah (5.12 kWh)',
+    'LiFePO4 (Lithium Iron Phosphate)',
+    '150A Continuous / 300A Peak (5s)',
+    '6000+ Cycles @ 80% DOD',
+    '440 x 400 x 220 mm',
+    '42.0 kg',
+    'Heavy-Duty M8 Copper Terminals & Anderson SB175',
+    'Solar & Home Energy Storage',
+    '["https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&q=80&w=1000","https://images.unsplash.com/photo-1558441719-6705166e440f?auto=format&fit=crop&q=80&w=1000","https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&q=80&w=1000"]',
+    8,
+    1,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+),
+(
+    'prod-hyperpulse-72v',
+    'HyperPulse 72V 45Ah High-C EV & E-Bike Pack',
+    'hyperpulse-72v-45ah-ev-pack',
+    'Ultra-compact high-discharge custom battery pack crafted with Molicel P42A 21700 cells. Designed specifically for custom electric motorbikes, high-speed scooters, and performance EV conversions requiring maximum instantaneous current.',
+    74990.00,
+    82990.00,
+    '72V (84V Max Charge)',
+    '45Ah (3.24 kWh)',
+    'Lithium-Ion (NMC High-Drain 21700)',
+    '200A Continuous / 350A Burst',
+    '1500+ Cycles @ 80% DOD',
+    '310 x 210 x 165 mm',
+    '16.8 kg',
+    'QS8 Anti-Spark Heavy Connector',
+    'EV & Electric Bikes',
+    '["https://images.unsplash.com/photo-1558441719-6705166e440f?auto=format&fit=crop&q=80&w=1000","https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&q=80&w=1000"]',
+    5,
+    1,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+),
+(
+    'prod-aeromax-24v',
+    'AeroMax 24V 20Ah Custom Drone & Robotics LiPo',
+    'aeromax-24v-20ah-drone-lipo',
+    'Custom lightweight, high-energy-density 6S (22.2V - 25.2V) lithium polymer battery pack engineered for agricultural payload drones, delivery UAVs, and heavy robotics. Custom copper wiring harness and thermal management insulation.',
+    28990.00,
+    32000.00,
+    '24V (6S 22.2V Nominal)',
+    '20Ah (444 Wh)',
+    'LiPo (High Discharge Polymer)',
+    '60C Continuous / 120C Burst',
+    '800+ Cycles',
+    '190 x 95 x 85 mm',
+    '2.9 kg',
+    'XT90-S Anti-Spark',
+    'Drone & Robotics',
+    '["https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&q=80&w=1000","https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&q=80&w=1000"]',
+    12,
+    1,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+),
+(
+    'prod-apexmarine-12v',
+    'ApexMarine 12V 200Ah Deep Cycle LiFePO4 Battery',
+    'apexmarine-12v-200ah-marine-pack',
+    'Rugged marine & RV custom battery with internal heating elements for sub-zero charging. Waterproof IP67 sealed casing, stainless steel terminal posts, active cell balancer, and NMEA 2000 CANbus telemetry interface.',
+    98990.00,
+    110000.00,
+    '12.8V Nominal',
+    '200Ah (2.56 kWh)',
+    'LiFePO4 (Lithium Iron Phosphate)',
+    '200A Continuous',
+    '5000+ Cycles',
+    '520 x 240 x 220 mm',
+    '23.5 kg',
+    'M8 Stainless Steel Posts & Anderson SB50',
+    'Marine & RV Power',
+    '["https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&q=80&w=1000","https://images.unsplash.com/photo-1558441719-6705166e440f?auto=format&fit=crop&q=80&w=1000"]',
+    6,
+    0,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+);

@@ -1,0 +1,75 @@
+# ===================================================
+# KINETOV BACKEND - GITIGNORE
+# ===================================================
+
+# 1. Dependencies
+node_modules/
+/node_modules
+.pnp
+.pnp.js
+
+# 2. Environment Variables & Secrets (STRICTLY IGNORED)
+.env
+.env.local
+.env.development
+.env.developement
+.env.example
+.env.production
+.env.staging
+.env.test
+.env.*
+
+# 3. Production Build Output
+dist/
+build/
+*.tsbuildinfo
+
+# 4. Local File Uploads
+uploads/*
+!uploads/.gitkeep
+
+# 5. Cloudflare Wrangler & Miniflare State
+.wrangler/
+.mf/
+
+# 6. Local SQLite & Database Artifacts
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# 7. Logs & Debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 8. Testing & Coverage
+coverage/
+.nyc_output/
+
+# 9. IDE & Editor Artifacts
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swo
+*.swp
+
+# 10. Operating System Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  name      String   @default("System Admin")
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id             String      @id @default(uuid())
+  name           String
+  slug           String      @unique
+  description    String
+  price          Float
+  compareAtPrice Float?
+  voltage        String      // e.g. "48V", "12V", "72V"
+  capacity       String      // e.g. "100Ah", "20Ah"
+  chemistry      String      // e.g. "LiFePO4", "Lithium-Ion"
+  maxDischarge   String?     // e.g. "150A Continuous"
+  cycleLife      String?     // e.g. "3500+ Cycles"
+  dimensions     String?     // e.g. "350 x 200 x 180 mm"
+  weight         String?     // e.g. "14.5 kg"
+  connectorType  String?     // e.g. "Anderson SB50"
+  category       String      @default("Custom Battery")
+  images         String[]    // Array of image URLs
+  stock          Int         @default(10)
+  isFeatured     Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  orderItems     OrderItem[]
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  orderNumber    String      @unique
+  customerName   String
+  customerEmail  String
+  customerPhone  String
+  address        String
+  city           String
+  state          String
+  pincode        String
+  totalAmount    Float
+  paymentMethod  String      @default("UPI") // "UPI" | "ONLINE"
+  paymentStatus  String      @default("PAID") // "PENDING" | "PAID" | "FAILED"
+  paymentUpiTxnId String?
+  orderStatus    String      @default("PROCESSING") // "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED"
+  items          OrderItem[]
+  createdAt      DateTime    @default(now())
+}
+
+model OrderItem {
+  id          String   @id @default(uuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String
+  quantity    Int
+  price       Float
+}
+
+model CustomBatteryQuote {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String
+  type        String   @default("BUY_CUSTOM") // "BUY_CUSTOM" | "SELL_BATTERY"
+  voltageReq  String?
+  capacityReq String?
+  application String?
+  notes       String
+  status      String   @default("NEW") // "NEW" | "REVIEWED" | "CONTACTED"
+  createdAt   DateTime @default(now())
+}
