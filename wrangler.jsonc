@@ -10,7 +10,7 @@
     {
       "binding": "DB",
       "database_name": "kinetov-db",
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+      "database_id": "ad22d198-1556-4050-b179-f122f2f5b194"
     }
   ],
   "vars": {
