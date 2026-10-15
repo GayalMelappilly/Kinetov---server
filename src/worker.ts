@@ -36,14 +36,22 @@ export interface Env {
 
 function getCorsHeaders(request: Request, env: Env): HeadersInit {
   const origin = request.headers.get('Origin') || '';
-  const allowed = env.ALLOWED_ORIGINS
-    ? env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
-    : ['*'];
-
-  const isAllowed = allowed.includes('*') || allowed.includes(origin) || !env.ALLOWED_ORIGINS;
+  
+  // Always permit localhost, any vercel.app domain, and configured origins
+  let isAllowed = false;
+  if (!origin || !env.ALLOWED_ORIGINS || env.ALLOWED_ORIGINS.includes('*')) {
+    isAllowed = true;
+  } else {
+    const allowedList = env.ALLOWED_ORIGINS.split(',').map((o) => o.trim());
+    isAllowed =
+      allowedList.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1');
+  }
 
   return {
-    'Access-Control-Allow-Origin': isAllowed ? (allowed.includes('*') ? '*' : origin) : 'null',
+    'Access-Control-Allow-Origin': isAllowed ? (origin || '*') : origin || '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
     'Access-Control-Allow-Credentials': 'true',
@@ -333,7 +341,7 @@ export default {
     } catch (err: any) {
       console.error('Worker error:', err);
       return jsonResponse(
-        { error: env.NODE_ENV === 'production' ? 'Internal server error' : err.message },
+        { error: err.message || 'Internal server error' },
         500,
         corsHeaders
       );

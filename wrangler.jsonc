@@ -15,6 +15,6 @@
   ],
   "vars": {
     "NODE_ENV": "production",
-    "ALLOWED_ORIGINS": "https://kinetov.com,https://kinetov.pages.dev,http://localhost:3000"
+    "ALLOWED_ORIGINS": "*"
   }
 }
